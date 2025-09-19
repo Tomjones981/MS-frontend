@@ -3,7 +3,7 @@ import axiosClient from "../api/axiosClient";
 import Swal from 'sweetalert2'
 const stateContext = createContext({});
 import { useNavigate } from 'react-router-dom';
-import {  message } from 'antd'; 
+import {  message as messageAlert } from 'antd'; 
 
 
 export const ContextProvider = ({ children }) => {
@@ -49,25 +49,25 @@ export const ContextProvider = ({ children }) => {
   
       if (response.data && response.status === 200) {
         const { message, token, user_type } = response.data;
-  
-        Swal.fire({
-          title: "Login Successful", 
-          icon: "success",
-          showConfirmButton: true,
-          confirmButtonText: "Continue",
-          customClass: {
-            popup: "bg-gray-800 dark:bg-gray-200 shadow-xl rounded-lg p-2",
-            title: "text-lg font-bold text-gray-200 dark:text-white",
-            confirmButton:
-              "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded",
-            icon: "text-green-500",
-          },
-        });
+        messageAlert.success("Login Successful");
+        // Swal.fire({
+        //   title: "Login Successful", 
+        //   icon: "success",
+        //   showConfirmButton: true,
+        //   confirmButtonText: "Continue",
+        //   customClass: {
+        //     popup: "bg-gray-200 dark:bg-gray-200 shadow-xl rounded-lg p-2",
+        //     title: "text-lg font-bold text-gray-600 dark:text-white",
+        //     confirmButton:
+        //       "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded",
+        //     icon: "text-green-500",
+        //   },
+        // });
   
         updateToken(token);
   
         await getUser();
-        return { success: true }; // Return success for OTP step
+        return { success: true };  
       }
     } catch (error) {
       console.error("Login failed:", error);
